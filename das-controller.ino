@@ -281,49 +281,6 @@ Operation parseCommand(const char* command)
 }
 
 /*
- * MQTT
- */
-
-void report(Output* output)
-{
-  if(enableMqtt && output->enableReport)
-  {
-    uint8_t state[1] = { output->state };
-    mqttClient.publish(output->reportTopic, state, 1);
-  }
-}
-
-void callback(char* topic, uint8_t* payload, unsigned int length)
-{
-  setStatus(WORKING2, true);
-
-  for(int i = 0; i < outputCount; i++) // Loop through available outputs
-  {
-    if(strcmp(outputs[i].controlTopic, topic) == 0)
-    {
-      if(payload[0] == 0x00)
-      {
-        execute(&outputs[i], OFF);
-      }
-      else if(payload[0] == 0x01)
-      {
-        execute(&outputs[i], ON);
-      }
-      else if(payload[0] == 0x02)
-      {
-        execute(&outputs[i], TOGGLE);
-      }
-      else
-      {
-        Serial.println(F("Got unknown payload"));
-      }
-
-      break;
-    }
-  }
-}
-
-/*
  * Execute command
  */
 
@@ -443,6 +400,49 @@ Result execute(Output* output, Operation operation, bool internal = false)
   }
   else
     return MISSING;
+}
+
+/*
+ * MQTT
+ */
+
+void report(Output* output)
+{
+  if(enableMqtt && output->enableReport)
+  {
+    uint8_t state[1] = { output->state };
+    mqttClient.publish(output->reportTopic, state, 1);
+  }
+}
+
+void callback(char* topic, uint8_t* payload, unsigned int length)
+{
+  setStatus(WORKING2, true);
+
+  for(int i = 0; i < outputCount; i++) // Loop through available outputs
+  {
+    if(strcmp(outputs[i].controlTopic, topic) == 0)
+    {
+      if(payload[0] == 0x00)
+      {
+        execute(&outputs[i], OFF);
+      }
+      else if(payload[0] == 0x01)
+      {
+        execute(&outputs[i], ON);
+      }
+      else if(payload[0] == 0x02)
+      {
+        execute(&outputs[i], TOGGLE);
+      }
+      else
+      {
+        Serial.println(F("Got unknown payload"));
+      }
+
+      break;
+    }
+  }
 }
 
 /*
