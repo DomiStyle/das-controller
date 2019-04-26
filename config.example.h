@@ -66,7 +66,7 @@ const char* telnetPassword = "1234";
 const char * telnetCommand = "show -d properties /admin1/system1"; // Command to run
 
 const long telnetInterval = 15000; // Interval at which to run the command
-const long telnetTimeout = 120000; // Timeout of the telnet socket
+const long telnetTimeout = 120000; // Wait time after server is turned off to turn off DAS
 const long telnetReconnectInterval = 30000; // Reconnect interval after connection is lost
 unsigned long telnetResponseDelay = 2000; // Milliseconds to wait for a response for the command from the server
 
