@@ -23,7 +23,7 @@ byte mac[] = { 0x00, 0xAA, (byte)name[0], (byte)name[1], (byte)name[2], (byte)na
 
 unsigned long statusFalloffDelay = 500; // Time after which LED returns to off
 
-uint8_t statusPins[] = { 2, 3, 4, 5, 6 }; // Either the 3 pins for the RGB led when using enableRgbStatus or the 5 LEDs of the front case
+uint8_t statusPins[] = { 3, 4, 5, 6, 7 }; // Either the 3 pins for the RGB led when using enableRgbStatus or the 5 LEDs of the front case
 
 /*
  * Network
