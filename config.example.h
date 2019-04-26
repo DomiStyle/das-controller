@@ -5,7 +5,7 @@
 bool enableInput = false; // Enable local toggling via pin
 bool enableHttp = true; // Enable HTTP server
 bool enableMqtt = false; // Enable MQTT client
-bool enableTelnet = false; // Enable Telnet client
+bool enableTelnet = true; // Enable Telnet client
 bool enableStatus = true; //Enable status LEDs
 bool enableRgbStatus = false; // Enable RGB status
 
